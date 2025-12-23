@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 04</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+        .slideshow-container {
+            position: relative;
+            max-width: 600px;
+            margin: auto;
+            text-align: center;
+        }
+
+        .slide {
+            display: none; /* All slides are hidden by default  */
+            width: 100%;
+            height: auto;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        /* The first slide is shown by default */
+        .slide:first-child {
+            display: block;
+            position: relative; /* The first slide needs a relative position so the container has a height */
+        }
+
+        .buttons {
+            margin-top: 10px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: #FF99FF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin: 0 5px;
+        }
+
+        .btn:hover {
+            background-color: #FF0099;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="slideshow-container">
+        <!-- images -->
+        <img class="slide" src="F2.jpg" alt="Gambar 1">
+        <img class="slide" src="F3.jpg" alt="Gambar 2">
+        <img class="slide" src="F1.jpg" alt="Gambar 3">
+    </div>
+
+    <div class="buttons">
+        <button id="prevBtn" class="btn">previous</button>
+        <button id="nextBtn" class="btn">next</button>
+    </div>
+
+    <script>
+        $(document).ready(function(){
+            var slides = $('.slide');
+            var currentSlide = 0;
+            var slideInterval = 3000; 
+            var fadeSpeed = 800; 
+
+            // Function to display a specific slide
+            function showSlide(index) {
+                // Fade out the current slide, then hide it completely after the effect is done
+                slides.eq(currentSlide).fadeOut(fadeSpeed, function() {
+                    // Set the new slide as the current slide
+                    currentSlide = index;
+                    // Fade in the new slide
+                    slides.eq(currentSlide).fadeIn(fadeSpeed);
+                });
+            }
+
+            // Function to display the next slide
+            $('#nextBtn').click(function() {
+                var nextIndex = (currentSlide + 1) % slides.length;
+                showSlide(nextIndex);
+            });
+
+            // Function to display the previous slide
+            $('#prevBtn').click(function() {
+                var prevIndex = (currentSlide - 1 + slides.length) % slides.length;
+                showSlide(prevIndex);
+            });
+            
+        });
+    </script>
+
+</body>
+</html>
